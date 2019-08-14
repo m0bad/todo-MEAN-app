@@ -3,12 +3,9 @@ const mongoose = require("mongoose");
 const User = require("./user");
 
 const todoSchema = mongoose.Schema({
-  title: {
+  text: {
     type: String,
     required: true
-  },
-  description: {
-    type: Strind
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
