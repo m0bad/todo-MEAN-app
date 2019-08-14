@@ -1,0 +1,7 @@
+<!-- coditional rendering based on the user auth -->
+<div class="container" *ngIf="!auth.loggedIn">
+  <app-welcome-page></app-welcome-page>
+</div>
+<div class="container" *ngIf="auth.loggedIn">
+  <app-todos></app-todos>
+</div>
