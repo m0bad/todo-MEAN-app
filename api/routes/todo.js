@@ -8,11 +8,13 @@ const {
   deleteTodo
 } = require("../controllers/todo");
 
+const { isLoggedIn, ownTodo } = require("../middlewares");
+
 // prefix: /todos/:username
 
-router.get("/", listTodos);
-router.post("/", createTodo);
-router.put("/:todoId", updateTodo);
-router.delete("/:todoId", deleteTodo);
+router.get("/", isLoggedIn, listTodos);
+router.post("/", isLoggedIn, createTodo);
+router.put("/:todoId", isLoggedIn, ownTodo, updateTodo);
+router.delete("/:todoId", isLoggedIn, ownTodo, deleteTodo);
 
 module.exports = router;
