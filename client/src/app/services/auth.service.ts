@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { User } from "../models/User";
 
 @Injectable()
 export class AuthService {
@@ -13,14 +14,20 @@ export class AuthService {
     password: string
   ): Observable<boolean> {
     return this.http
-      .post<{ token: string }>("http://localhost:8080/auth/signup", {
+      .post<User>("http://localhost:8080/auth/signup", {
         email,
         username,
         password
       })
       .pipe(
         map(result => {
-          localStorage.setItem("access_token", result.token);
+          const user = {
+            id: result.id,
+            username: result.username,
+            email: result.email,
+            token: result.token
+          };
+          localStorage.setItem("current_user", JSON.stringify(user));
           return true;
         })
       );
@@ -28,23 +35,33 @@ export class AuthService {
 
   signin(email: string, password: string): Observable<boolean> {
     return this.http
-      .post<{ token: string }>("http://localhost:8080/auth/signin", {
+      .post<User>("http://localhost:8080/auth/signin", {
         email,
         password
       })
       .pipe(
         map(result => {
-          localStorage.setItem("access_token", result.token);
+          const user = {
+            id: result.id,
+            username: result.username,
+            email: result.email,
+            token: result.token
+          };
+          localStorage.setItem("current_user", JSON.stringify(user));
           return true;
         })
       );
   }
 
   logout() {
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("current_user");
+  }
+
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem("current_user"));
   }
 
   public get loggedIn(): boolean {
-    return localStorage.getItem("access_token") !== null;
+    return localStorage.getItem("current_user") !== null;
   }
 }

@@ -9,7 +9,7 @@ import { AuthService } from "../../services/auth.service";
   templateUrl: "./signup.component.html",
   styleUrls: ["./signup.component.css"]
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent{
   username: string;
   email: string;
   password: string;

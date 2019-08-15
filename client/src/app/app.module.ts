@@ -10,17 +10,30 @@ import { AuthService } from "./services/auth.service";
 import { AuthGuard } from "./auth.guard";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
-import { TodosComponent } from './components/todos/todos.component';
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import { SignupComponent } from "./components/signup/signup.component";
+import { WelcomePageComponent } from "./components/welcome-page/welcome-page.component";
+import { TodosComponent } from "./components/todos/todos.component";
+import { TodoFormComponent } from "./components/todo-form/todo-form.component";
+import { TodoItemComponent } from './components/todo-item/todo-item.component';
 
 export function tokenGetter() {
-  return localStorage.getItem("access_token");
+  const user = JSON.parse(localStorage.getItem("current_user"));
+  return user.token;
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, NavbarComponent, SignupComponent, WelcomePageComponent, TodosComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    NavbarComponent,
+    SignupComponent,
+    WelcomePageComponent,
+    TodosComponent,
+    TodoFormComponent,
+    TodoItemComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,8 +42,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:8080'],
-        blacklistedRoutes: ['localhost:8080/auth']
+        whitelistedDomains: ["http://localhost:8080/todos"],
+        blacklistedRoutes: ["localhost:8080/auth"]
       }
     })
   ],
