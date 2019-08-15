@@ -14,7 +14,7 @@ export class AuthService {
     password: string
   ): Observable<boolean> {
     return this.http
-      .post<User>("http://localhost:8080/auth/signup", {
+      .post<User>("auth/signup", {
         email,
         username,
         password
@@ -35,7 +35,7 @@ export class AuthService {
 
   signin(email: string, password: string): Observable<boolean> {
     return this.http
-      .post<User>("http://localhost:8080/auth/signin", {
+      .post<User>("auth/signin", {
         email,
         password
       })

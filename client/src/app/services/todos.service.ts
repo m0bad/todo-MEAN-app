@@ -7,7 +7,7 @@ import { Todo } from "../models/Todo";
   providedIn: "root"
 })
 export class TodosService {
-  url = "http://localhost:8080/todos";
+  url = "todos";
 
   constructor(private http: HttpClient) {}
 
@@ -39,11 +39,11 @@ export class TodosService {
     todo: Todo,
     username: string,
     userToken: string
-  ): Observable<Todo> {
+): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ Authorization: `Bearer ${userToken}` })
     };
     const _url = `${this.url}/${username}/${todo._id}`;
-    return this.http.delete<Todo>(_url, httpOptions).subscribe();
+    return this.http.delete<Todo>(_url, httpOptions);
   }
 }
